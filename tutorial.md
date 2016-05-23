@@ -79,7 +79,7 @@ Want more? Many menus will show shortcuts to the righthand side. There's also a 
 
 
 ### Changing your point of view
-The view in the 3D view window can be configured by selecting from the View menu. You can look from the top, the side, or the active camera in the scene. If you have a numpad, these are setup as additional hotkeys. If you don't have a numpad, you can select an option in File > User Preferences > Input to "Emulate numpad. These will let you hop around quickly. 
+The view in the 3D view window can be configured by selecting from the View menu. You can look from the top, the side, or the active camera in the scene. If you have a numpad, these are setup as additional hotkeys. If you don't have a numpad, you can select an option in File > User Preferences > Input to "Emulate numpad. These will let you hop around quickly.
 
 The other important thing about the point of view interface is that you can look at the scene from multiple angles at a time. To do this, click and drag on the white angled lines on the upper right corner of the 3D view module. You can merge the new windows back together by dragging the corner of an existing window towards any window that shares a complete edge (you should see a white merge arrow).
 
@@ -89,7 +89,7 @@ The other important thing about the point of view interface is that you can look
 * use the Tools tab to create some more objects
 * use the Properties tab to edit those objects manually
 * use the View menu to look at your objects from above, from the side, and through the camera
-* split your view into multiple persectives by dragging from the upper right corner, change their viewpoints, merge them back together to a single 3D view
+* split your view into multiple perspectives by dragging from the upper right corner, change their viewpoints, merge them back together to a single 3D view
 
 
 ## Outliner (where's my stuff?)
@@ -97,7 +97,7 @@ The other important thing about the point of view interface is that you can look
 
 You've probably noticed that keeping track of which objects are which can get complicated fast.
 
-The outliner is pretty straightforward - it shows all your objects organized hierarchically. If you right click on the text
+The Outliner is pretty straightforward - it shows all your objects organized hierarchically. If you right click on the text
 
 ### Stuff to try
 * rename your objects something meaningful
@@ -105,10 +105,10 @@ The outliner is pretty straightforward - it shows all your objects organized hie
 
 ## Properties (so many options!)
 ![](tutorial_images/icons/properties.png)
-By default the properties menu sits below the Outliner menu. If you managed to render a scene before, you've already used its `Render` tab. There's lots of options worth exploring but for this tutorial we'll just use `Material`, `Texture`, and  `Physics`. 
+By default the properties menu sits below the Outliner menu. If you managed to render a scene before, you've already used its `Render` tab. There's lots of options worth exploring but for this tutorial we'll just use `Material`, `Texture`, and  `Physics`.
 
 ### Render
-You can use this to configure how your scene is rendered, including where files are stored. The defaults are pretty good but in the `Shading` tab you should make sure GLSL is selected (instead of Multitexture). 
+You can use this to configure how your scene is rendered, including where files are stored. The defaults are pretty good but in the `Shading` tab you should make sure GLSL is selected (instead of Multitexture).
 
 ### Material
 There's lots of nuance to material but we'll keep things simple for the moment. To add a new material click on the plus sign and then click on the color box under `Diffuse`. You should see the color update in the 3D View.
@@ -118,7 +118,7 @@ Texture is more complicated than material and has a whole specific skillset for 
 
 
 ### Physics
-For interactive applications, we want physics! For objects that you want to be affected by the world, select `Dynamic` and you'll get gravity for free. If you scroll down you'll see 'Collision Bounds' - these determine how close objects are allowed to get to one another and can be optimized by shape to be calculated efficiently. 
+For interactive applications, we want physics! For objects that you want to be affected by the world, select `Dynamic` and you'll get gravity for free. If you scroll down you'll see 'Collision Bounds' - these determine how close objects are allowed to get to one another and can be optimized by shape to be calculated efficiently.
 
 
 ### Stuff  to try
@@ -159,14 +159,14 @@ You may also want to install a [tool to screencast your keystrokes](https://wiki
 
 Finally, if you've got a powerful graphics card, you may want to make sure Blender is enabled to use it in File > User Preferences > System.
 
-## Python Console (a programatic way to get things done)
+## Python Console (a programmatic way to get things done)
 ![](tutorial_images/icons/python-console.png)
 
 Almost everything you do in blender can be expressed as a python function. To understand that better, we're going to have to customize our interface (you can use the one we named earlier or create a new one). Once you've got the layout you want to edit selected, if you hover just under the information bar, you'll get a drag arrow. Dragging on that reveals a secret history where all the actions you take in the editor are logged (and can be copied by right-clicking them).
 
 You can run any of those commands in the black python console at the bottom of the screen. There are two convenience variables that are references to python modules (C for bpy.context and D for bpy.data). If you want to find out what they (or other python objects) contain, you can type `dir(C)` for a list of functions and `help(C)` for the longer documentation.
 
-For intance, to create a cube, you can run:
+For instance, to create a cube, you can run:
 
 ```
 bpy.ops.mesh.primitive_cube_add(radius=1, view_align=False, enter_editmode=False, location=(-9.73769, 14.1261, 0.39459), layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
@@ -176,7 +176,7 @@ That seems like *more* work than the GUI! But what you're seeing is pythonic syn
 
 ```
 bpy.ops.mesh.primitive_cube_add(location=(0,0,0), radius=3)
-``` 
+```
 
 Even that seems like a lot of typing, though - what if you just want to type things like `make('cube')`?
 
@@ -186,7 +186,7 @@ def make(primitive='cube',location=(0,0,0)):
         bpy.ops.mesh.primitive_cube_add(location=location)
     elif (primitive == 'cone'):
 	bpy.ops.mesh.primitive_cone_add(location=location)
-``` 
+```
 
 But what if you want to do something else to that object or modify it later? To make this function really useful, we should return the object in a convenient way. This gets a little trickier but we can do it by using blender's 'context' module to obtain the active object (since new objects become active by default). We can use this approach to extend our function with new arguments or set variables as references to objects.
 
@@ -222,27 +222,27 @@ def track_to(camera_object, point=(0,0,0)):
 ### Stuff to try
 * create a cylinder with the python console
 * write a function to make and alter several objects at once
-* turn on physics for an object programmatically 
+* turn on physics for an object programmatically
 * add a new light and change its color
 * make a camera object and use `track_to` to point it at something interesting then grab and move the 'camera_tracks_here' object around (what happens if you make a falling object the parent of the 'camera_tracks_here' object?)
 * learn a new bpy.ops function from the info menu (for instance, changing an object's diffuse_color) and incorporate it into your new function
 
 
 ### Why would I do this?
-Once you understand how python is working behind the scene in blender, you can bend it to your will. If you have a task that seems too complicated, you can work out how to do it once and write a function to control it. If you don't like the interface, you can change it to suit your own idiosyncracies - or better, share something useful back to the community. More importantly, if you're doing things with apis or data streaming applications, you can use python to create and destroy objects on the fly. 
+Once you understand how python is working behind the scene in blender, you can bend it to your will. If you have a task that seems too complicated, you can work out how to do it once and write a function to control it. If you don't like the interface, you can change it to suit your own idiosyncracies - or better, share something useful back to the community. More importantly, if you're doing things with apis or data streaming applications, you can use python to create and destroy objects on the fly.
 
 #Getting Interactive
 
-So far we've mostly just set things up without much interaction. This next section is where things get interesting. 
+So far we've mostly just set things up without much interaction. This next section is where things get interesting.
 
 ## Text Editor (integrated! but not that great...)
 ![](tutorial_images/icons/text-editor.png)
 
 The text editor is the place where you can write scripts that control things in the game. Importantly, you can also use it to load scripts you are editing in a proper text editor like PyCharm, Atom, Sublime, or vim. There are several game engine templates that provide some starting place, but they're not exactly heavily documented. You can click the file menu to load any of the game_scripts included in this repo.
 
-Most game engines have some notion of controlling objects by attaching scripts to them. There are some things (like physics) that operate at a global level, but the real mechanics of an interaction are customized on a per-object basis. 
+Most game engines have some notion of controlling objects by attaching scripts to them. There are some things (like physics) that operate at a global level, but the real mechanics of an interaction are customized on a per-object basis.
 
-It's important to realize that this tutorial has now shifted from thinking about scripts that do things in the *editor* to scripts do things in the *player* at runtime. In terms of python that means we're importing and using *an entirely different library*. For newcomers, this can be extremely confusing. For the moment, just accept that `import bpy` (blender python) and `import bge` (blender game editor) are cousins but relate to you as a developer in radically different ways. 
+It's important to realize that this tutorial has now shifted from thinking about scripts that do things in the *editor* to scripts do things in the *player* at runtime. In terms of python that means we're importing and using *an entirely different library*. For newcomers, this can be extremely confusing. For the moment, just accept that `import bpy` (blender python) and `import bge` (blender game editor) are cousins but relate to you as a developer in radically different ways.
 
 Below is a typical start to a Blender Game Editor script:
 
@@ -277,17 +277,17 @@ If you're thinking, 'What? What happened to meshes and cameras and lights? What 
 
 The Logic Editor gives you a view in to Sensors, Controllers, and Actuators that you can connect together by dragging and dropping. It's useful to have some sense of how they work since many tutorials prefer them to python commands. Often playing around with what they are capable of is the best way to figure out how to accomplish things programmatically.
 
-You can switch to the Game Logic if you want or you can cutsomize your layout some more by grabbing the slash marks in the upper right corner of the console and dragging it to create a new sub-window just like we did for multiple 3D View windows. Click on the icon in the lower left to change the view from the `Python Console` to the `Logic Editor`.
+You can switch to the Game Logic if you want or you can customize your layout some more by grabbing the slash marks in the upper right corner of the console and dragging it to create a new sub-window just like we did for multiple 3D View windows. Click on the icon in the lower left to change the view from the `Python Console` to the `Logic Editor`.
 
 ### Sensors
 * Always (use this to launch a script or attach recurring loops to objects)
-Always is the basic action launcher. In default mode it fires once. You can have it fire repeatedly by clicking the leftmost box (it looks like `'''`) to enable pulse mode. By default it fires as fast as possible but you can adjust the skip value to add time between pulses. 
+Always is the basic action launcher. In default mode it fires once. You can have it fire repeatedly by clicking the leftmost box (it looks like `'''`) to enable pulse mode. By default it fires as fast as possible but you can adjust the skip value to add time between pulses.
 
 * Inputs (Mouse, Keyboard, Joystick)
 You can attach controllers to you game with these. Generally, this is pretty tedious in the logic editor. You can import (or rewrite a script to do it )
 
 * Messages
-Messages are a way of sending information from one object to another. As a sensor, it's a message listener. 
+Messages are a way of sending information from one object to another. As a sensor, it's a message listener.
 
 ### Controllers
 Many of these are just logical combinations, but importantly they can also be python scripts.
@@ -297,7 +297,7 @@ Many of these are just logical combinations, but importantly they can also be py
 
 ### Actuators
 
-Some things are still much easier to do with the editor than with code. If you're trying to accomplish something, that you can't quite figure out from the bge api, it's helpful to look through the list of actuator options. 
+Some things are still much easier to do with the editor than with code. If you're trying to accomplish something, that you can't quite figure out from the bge api, it's helpful to look through the list of actuator options.
 
 * Game (do things like restart, quit a game, load from file, or take a screenshot)
 * Scene (use it to do things like enable a Heads Up Display as an overlay, set the camera, and change between scenes)
@@ -313,7 +313,7 @@ Some things are still much easier to do with the editor than with code. If you'r
 
 
 ## collisions
-Collision sensors are an important trigger in the game world. They are useful for all sorts of things like recording damage, collecting items, and changing the state of the world in response to a user's action. 
+Collision sensors are an important trigger in the game world. They are useful for all sorts of things like recording damage, collecting items, and changing the state of the world in response to a user's action.
 
 The simplest to test is a collision sensor that destroys the object that was hit on contact. You can set this up by creating two objects with Physics type set to dynamic over each other. The attach a collision sensor and connect to to an Edit Object actuator set to "End Object". If it works, when they make contact, the one with the sensor will disappear.
 
@@ -328,13 +328,13 @@ When you are working with an object you imported from somewhere else, the easies
 - select all the meshes
 - join the meshes together
 - rename the joined object
-- set the orgin to something useful (like its geometric center)
+- set the origin to something useful (like its geometric center)
 - rotate it so that the green arrow (Y) is pointing from the back of your object to the front
 - change the scale so it matches other objects in your world
 - choose Object > Apply (Ctrl-A) and select Rotation & Scale (now your rotation values should all be 0 and your scale values should all be 1)
 - move the object to a hidden layer by selecting `Object > Move to layer` (or typing M in the 3D view)
 
-Now you can create objects on the fly by using addObject and the name of your hidden object. 
+Now you can create objects on the fly by using `addObject` and the name of your hidden object. Note: this will throw errors if you try to add an object that was in the current layer in the editor.
 
 Here's a script that demonstrates it:
 
@@ -355,5 +355,3 @@ export BLENDER_PYTHON_DIR=<your-system-path-to-blender-python>
 pip3.5 install --install-option="--prefix=$BLENDER_PYTHON_DIR/python"
 ```
  You can load an example in `./game_scripts/fetch_data.py
- 
- 

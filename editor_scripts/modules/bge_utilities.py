@@ -19,16 +19,6 @@ bl_info = {
     "category": "Game Engine"
     }
 
-
-class GameScript(object):
-    bl_idname = "object.gamescript"
-    bl_label = "GameScript"
-
-    def test(self):
-        print('test')
-    def execute(self, context):
-        print('execute')
-
 def make(primitive='cube', location=(0,0,0), rotation=None, scale=None, physics='STATIC'):
     if(primitive == 'cube'):
         bpy.ops.mesh.primitive_cube_add(location=location)
@@ -125,54 +115,11 @@ def setup_keyboard_controller(obj):
     add_key_to_move(obj, 'K', axis=2, amount=+5)
     add_key_to_rotate(obj, 'L', axis=2, amount=0.0174533)
 
-
-def run_general_setup():
-    '''
-    some general things to set up for scripting with the blender game engine
-    '''
-    bpy.context.scene.game_settings.material_mode = 'GLSL'
-    bpy.context.scene.render.engine = 'BLENDER_GAME'
-    bpy.context.scene.world.mist_settings.use_mist = True
-
-def run():
-    bpy.ops.view3d.game_start()
-
-def run_standalone():
-    bpy.ops.wm.blenderplayer_start()
-
-def make_skybox(image_path):
-    #TODO flesh this out
-    bpy.ops.mesh.primitive_uv_sphere_add(size=1, view_align=False, enter_editmode=False, location=(-1.23799, -6.31708, 0.00493861), layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
-    bpy.ops.transform.resize(value=(-126.207, -126.207, -126.207), constraint_axis=(False, False, False), constraint_orientation='GLOBAL', mirror=False, proportional='DISABLED', proportional_edit_falloff='SMOOTH', proportional_size=1)
-    bpy.context.object.game.use_ghost = True
-
-    bpy.context.space_data.context = 'MATERIAL'
-    bpy.ops.material.new()
-    bpy.context.object.active_material.use_shadeless = True
-    bpy.context.space_data.viewport_shade = 'TEXTURED'
-    bpy.ops.texture.new()
-    bpy.ops.image.open(filepath="//assets/textures/galaxydisk.png", directory="/home/keelan/projects/blender-tutorial/assets/textures/", files=[{"name":"galaxydisk.png", "name":"galaxydisk.png"}], show_multiview=False)
-    bpy.context.object.active_material.active_texture_index = 0
-    bpy.data.textures["galaxy_background"].name = "galaxy_background"
-    bpy.context.object.active_material.game_settings.use_backface_culling = False #make sure the game engine renderrs the inside of the skybox sphere
-
-    bpy.ops.mesh.primitive_uv_sphere_add(size=1, view_align=False, enter_editmode=False, location=(-1.23799, -6.31708, 0.00493861), layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
-    bpy.context.object.active_material.texture_slots[0].uv_layer = "UVMap"
-
-
-    bpy.ops.object.editmode_toggle()
-    bpy.ops.uv.sphere_project()
-    bpy.context.space_data.context = 'MATERIAL'
-    bpy.context.object.active_material_index = 0
-    bpy.context.object.active_material.name = "galaxy_material"
-    bpy.context.space_data.context = 'TEXTURE'
-
-
 def attach_script(obj, sensor_type='ALWAYS', script_name='my_blend_script.py', sensor_name='my_sensor', controller_name='py_controller'):
     '''
+    attaches a script to an object (assumes the script has already been linked in the Blender editor)
     ex: my_avatar = make_cube()
         attach_script(my_avatar, 'KEYBOARD', 'wasd_controls.py', sensor_name='my_keyboard')
-
     '''
     bpy.ops.logic.sensor_add(type=sensor_type, name=sensor_name, object=obj.name)
     sensor = obj.game.sensors[-1] #default is sensor_type.title()
@@ -189,12 +136,19 @@ def attach_script(obj, sensor_type='ALWAYS', script_name='my_blend_script.py', s
     sensor.link(controller)
     return True
 
-def add_property(obj, name='custom_property', type='BOOL'):
-    #bpy.ops.object.game_property_new(name="")
-    #bpy.context.object.type = 'BOOL'
+def run_general_setup():
+    '''
+    some general things to set up for scripting with the blender game engine
+    '''
+    bpy.context.scene.game_settings.material_mode = 'GLSL'
+    bpy.context.scene.render.engine = 'BLENDER_GAME'
+    bpy.context.scene.world.mist_settings.use_mist = True
 
-    pass
+def run():
+    bpy.ops.view3d.game_start()
 
+def run_standalone():
+    bpy.ops.wm.blenderplayer_start()
 
 def register():
     bpy.utils.register_class(GameScript)
