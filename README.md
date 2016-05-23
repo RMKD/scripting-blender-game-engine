@@ -97,7 +97,8 @@ alias blenderpip='pip3 install --install-option="--prefix=$BLENDERPATH/Resources
 
 ## Can I Use this stuff for VR?
 Not (quite) yet - but there are several threads worth following:
-https://github.com/OpenHMD/OpenHMD
-https://github.com/ValveSoftware/openvr
-https://github.com/cedeon/hmd_sdk_bridge/tree/cedeon-vive
-https://github.com/cedeon/virtual_reality_viewport/tree/vivetest
+
+* https://github.com/OpenHMD/OpenHMD
+* https://github.com/ValveSoftware/openvr
+* https://github.com/cedeon/hmd_sdk_bridge/tree/cedeon-vive
+* https://github.com/cedeon/virtual_reality_viewport/tree/vivetest

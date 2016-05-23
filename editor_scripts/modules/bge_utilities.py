@@ -5,20 +5,6 @@ from math import radians
 The easiest way to use the functions in this script is to import it as as Addon. You can also make it accessible to the blender python console by specifying its location in File > User Preferences > File. Set the Scripts file to the editor_scripts directory.
 '''
 
-bl_info = {
-    "name": "Blender Game Engine Editor Tools ",
-    "description": "This is a toolset to make it easier to attach and manipulate game engine artifacts with python rather than the editor.",
-    "author": "R. M. Keelan Downton",
-    "version": (0, 1),
-    "blender": (2, 77, 0),
-    "location": "View3D > Object > Game Engine",
-    "warning": "experimental", # used for warning icon and text in addons panel
-    "wiki_url": "github",
-    "tracker_url": "git issues",
-    "support": "COMMUNITY",
-    "category": "Game Engine"
-    }
-
 def make(primitive='cube', location=(0,0,0), rotation=None, scale=None, physics='STATIC'):
     if(primitive == 'cube'):
         bpy.ops.mesh.primitive_cube_add(location=location)
@@ -144,17 +130,33 @@ def run_general_setup():
     bpy.context.scene.render.engine = 'BLENDER_GAME'
     bpy.context.scene.world.mist_settings.use_mist = True
 
-def run():
+def run_game():
     bpy.ops.view3d.game_start()
 
 def run_standalone():
     bpy.ops.wm.blenderplayer_start()
 
+
+# some boilerplate to make this importable via the User Preferences addon menuS
+bl_info = {
+    "name": "Blender Game Engine Editor Tools ",
+    "description": "This is a toolset to make it easier to attach and manipulate game engine artifacts with python commands in the console.",
+    "author": "R. M. Keelan Downton",
+    "version": (0, 1),
+    "blender": (2, 77, 0),
+    "location": "View3D > Object > Game Engine",
+    "warning": "experimental", # used for warning icon and text in addons panel
+    "wiki_url": "https://github.com/RMKD/scripting-blender-game-engine",
+    "tracker_url": "https://github.com/RMKD/scripting-blender-game-engine/issues",
+    "support": "COMMUNITY",
+    "category": "Game Engine"
+    }
+
 def register():
-    bpy.utils.register_class(GameScript)
+    print('register')
 
 def unregister():
-    bpy.unregister_class(GameScript)
+    print('unregister')
 
 if __name__ == '__main__':
     register()
