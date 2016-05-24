@@ -32,12 +32,22 @@ def setOrientationByEuler(obj, euler=(0,0,0)):
     #xyz = new_cam.worldOrientation.to_euler()
     #xyz[0] = radians(80)
     #new_cam.worldOrientation = xyz.to_matrix()
-    obj.worldOrientation = (radians(euler[0]),radians(euler[1]),radians(euler[2]))
+    obj.worldOrientation = (radians(euler[0]),radians(euler[1]),radians(euler[2])) 
     return obj
 
-
-def send_message(key, value, recipient_name):
-    bge.logic.sendMessage(key, value, recipient_name)
+def encode_object_message(obj):
+    '''
+    This encoder turns an object's data into a tuple that can be serialized
+    and sent over a network efficiently.
+    These messages can be unpacked by invoking:
+        code, msg = pickle.loads(data)
+        name, position, euler_rotation = msg
+    '''
+    xp, yp, zp = obj.position.to_tuple()
+    xr, yr, zr = obj.orientation.to_euler()
+    user = obj['user'] if('user' in obj) else 'server'
+    msg = ('object', (obj.name, user, (xp, yp, zp),  (xr, yr, zr) ) )
+    return pickle.dumps(msg)
 
 def main():
     #create at least one object to ensure the class is available within the engine
